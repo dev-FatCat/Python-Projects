@@ -1,0 +1,7 @@
+1. Install VS Code via this link: https://code.visualstudio.com/Download
+
+2. Download a Python Interpreter (for now you can use the offical Python source)
+
+3. Install "Pygame" with this command: pip install pygame, in the command prompt, or terminal.
+
+4. Run the code
