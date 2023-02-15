@@ -7,4 +7,4 @@ So please, feel free to edit and learn from the files!
 
 # .py FILE ONLY!
 
-The file is a .py file, not a .exe, you will need a python interpreter, or VS code to view and run the file
+The file is a .py file, not a .exe, you will need a python interpreter, or VS code to view and run the file, read the 'Instructions' for more info
