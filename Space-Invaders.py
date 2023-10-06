@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -38,6 +39,25 @@ class Bunker(pygame.sprite.Sprite):
         self.image.fill(green)
         self.rect = self.image.get_rect()
 
+class Missile(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([5, 10])
+        self.image.fill(green)
+        self.rect = self.image.get_rect()
+
+    def update(self):
+        self.rect.y += -10
+
+class Bomb(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([5, 10])
+        self.image.fill(red)
+        self.rect = self.image.get_rect()
+
+    def update(self):
+        self.rect.y += 10
 
 ship = Ship()
 ship.rect.x = 375
@@ -45,6 +65,8 @@ ship.rect.y = 650
 
 enemy_list =  pygame.sprite.Group()
 bunker_list = pygame.sprite.Group()
+missile_list = pygame.sprite.Group()
+bomb_list = pygame.sprite.Group()
 
 for row in range(1, 6):
     for column in range(1, 11):
@@ -66,6 +88,10 @@ def redraw():
     ship.draw()
     enemy_list.draw(win)
     bunker_list.draw(win)
+    missile_list.update()
+    missile_list.draw(win)
+    bomb_list.update()
+    bomb_list.draw(win)
     pygame.display.update()
 
 run = True
@@ -83,6 +109,21 @@ while run:
         ship.rect.x += -10
     if key[pygame.K_RIGHT]:
         ship.rect.x += 10
+    if key[pygame.K_SPACE]:
+        if len(missile_list) < 10:
+            missile = Missile()
+            missile.rect.x = ship.rect.x + 25
+            missile.rect.y = ship.rect.y
+            missile_list.add(missile)
+
+    shoot_chance = random.randint(1, 100)
+    if shoot_chance < 25:
+        if len(enemy_list) > 0:
+            random_enemy = random.choice(enemy_list.sprites())
+            bomb = Bomb()
+            bomb.rect.x = random_enemy.rect.x + 12
+            bomb.rect.y = random_enemy.rect.y + 25
+            bomb_list.add(bomb)
 
     redraw()
 
